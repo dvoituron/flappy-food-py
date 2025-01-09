@@ -326,5 +326,25 @@ while running:
     # Contrôle de la vitesse de la boucle (FPS)
     pygame.time.Clock().tick(60)
 
+# Freeze l'écran de fin
+running = True
+sonFinJeu = pygame.mixer.Sound(os.path.join('sons', 'GameFailed.mp3'))
+pygame.mixer.music.stop()  # Arrête la musique de fond
+sonFinJeu.play()  # Joue le son de fin de jeu
+
+# Dessiner le texte "Game Over" au milieu de l'écran
+font = pygame.font.Font(None, 120)
+text = font.render("Game Over", True, (255, 0, 0))
+text_rect = text.get_rect(center=(largeur/2, hauteur/2))
+fenetre.blit(text, text_rect)
+pygame.display.flip()
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        elif event.type == pygame.KEYDOWN:  # Si une touche est enfoncée
+            running = False
+
 # Quitter Pygame proprement
 pygame.quit()
